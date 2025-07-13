@@ -2,9 +2,9 @@
 city_name=hanoi
 curl -s wttr.in/$city_name?T --output weather_report
 
-obs_temp=$(curl -s wttr.in/$city?T | grep -m 1 '°.' | grep -Eo -e '-?[[:digit:]].*')
+obs_temp=$(curl -s wttr.in/$city?T | grep -m 1 '°.' | grep -Eo -e '-?[[:digit:]].*' | cut -d "(" -f1)
 echo "The current Temperature of $city: $obs_temp"
-fc_temp=$(curl -s wttr.in/$city?T | head -23 | tail -1 | grep '°.' | cut -d 'C' -f2 | grep -Eo -e '-?[[:digit:]].*')
+fc_temp=$(curl -s wttr.in/$city?T | head -23 | tail -1 | grep '°.' | cut -d 'C' -f2 | grep -Eo -e '-?[[:digit:]].*' | cut -d "(" -f1)
 echo "The forecasted temperature for noon tomorrow for $city : $fc_temp C"
 
 TZ=Asia/Ho_Chi_Minh
