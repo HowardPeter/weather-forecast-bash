@@ -48,6 +48,11 @@ This project consists of a set of bash scripts that work together to monitor and
 ./weekly_stats.sh
 ```
 
+4. Send log to email:
+```bash
+./send_log.sh
+```
+
 ## Data Files
 - `rx_poc.log`: Raw weather data and forecasts
 - `historical_fc_accuracy.tsv`: Detailed forecast accuracy records
