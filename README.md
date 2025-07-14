@@ -27,6 +27,10 @@ This project consists of a set of bash scripts that work together to monitor and
   - Maximum absolute error
 - Uses `scratch.txt` as temporary storage for calculations
 
+### 4. Send log to email
+- Send recorded weather log to specific email.
+- Use data from `rx_poc.log`.
+
 ## Usage
 
 1. Initial data collection:
