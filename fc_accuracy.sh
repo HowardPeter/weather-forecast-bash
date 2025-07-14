@@ -14,7 +14,7 @@ elif [ -3 -le $accuracy ] && [ $accuracy -le 3 ]; then
 else
     accuracy_range="poor"
 fi
-echo "Forecast accuracy is $accuracy_range"
+echo "Forecast accuracy is $accuracy_range!"
 
 row=$(tail -1 rx_poc.log)
 year=$( echo $row | cut -d " " -f1)
