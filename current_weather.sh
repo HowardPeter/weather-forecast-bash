@@ -23,7 +23,7 @@ local_time=$(TZ=$time_zone date '+%F %H:%M:%S UTC%Z')
 printf "%-15s: %s\n" "City" "$city"
 printf "%-15s: %s °C\n" "Temperature" "$temp"
 printf "%-15s: %s%%\n" "Humidity" "$humidity"
-printf "%-15s: %s km/h\n" "Wind speed" "$w_speed"
+printf "%-15s: %s m/s\n" "Wind speed" "$w_speed"
 printf "%-15s: %s\n" "Description" "$desc"
 printf "%-15s: %s\n" "Local time" "$local_time"
 
