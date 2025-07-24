@@ -1,6 +1,6 @@
 #! /bin/bash
 
-email="studentphudong@gmail.com"
+email="youremail@gmail.com"
 time_zone=Asia/Ho_Chi_Minh
 response=$(./get_city.sh)
 
