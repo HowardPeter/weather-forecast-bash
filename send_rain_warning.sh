@@ -9,6 +9,7 @@ city=$(echo "$response" | jq -r ".city.name")
 today=$(TZ=$time_zone date '+%F')
 tomorrow=$(TZ=$time_zone date -d "+1 day" +%F)
 
+# Function get forecast rain time in a day
 get_rain_status() {
   local date=$1
   echo "$response" | jq -r --arg date "$date" '
@@ -22,6 +23,7 @@ get_rain_status() {
 today_weather=$(get_rain_status $today)
 tomorrow_weather=$(get_rain_status $tomorrow)
 
+# Print the result to ASCII format
 print_ascii() {
   local weather=$1
 
@@ -71,8 +73,6 @@ if [ -n "$tomorrow_weather" ]; then
   echo -e "$msg_tomorrow"
 fi
 
-# Gộp nội dung email
+# Group email content and send mail
 email_body=$(printf "%b\n%b\n" "$msg_today" "$msg_tomorrow")
-
-# Gửi mail
 echo -e "$email_body" | mail -s "☔ Weather Warning: Rain Forecast" $email

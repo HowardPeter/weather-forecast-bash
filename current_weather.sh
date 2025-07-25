@@ -13,6 +13,7 @@ csv_file="today_weather.csv"
 
 city=$(echo "$response" | jq -r ".name")
 
+# Get temperature, weather description, humidity and wind speed
 temp=$(echo "$response" | jq -r ".main.temp")
 desc=$(echo "$response" | jq -r ".weather[0].description")
 humidity=$(echo "$response" | jq -r ".main.humidity")
@@ -33,8 +34,8 @@ if [ ! -f "$csv_file" ]; then
   echo -e '\xEF\xBB\xBF"City","Temperature (°C)","Humidity (%)","Wind Speed (m/s)","Description","Time"' > $csv_file
 fi
 
-csvrecord=$(echo "\"$city\",\"$temp\",\"$humidity\",\"$w_speed\",\"$desc\",\"$local_time\"")
-
+# If the result is not null, send to csv file
 if [[ "$city" != "null" || "$temp" != "null" || "$humidity" != "null" || "$w_speed" != "null" || "$desc" != "null" ]]; then
+  csvrecord=$(echo "\"$city\",\"$temp\",\"$humidity\",\"$w_speed\",\"$desc\",\"$local_time\"")
   echo $csvrecord>>$csv_file
 fi
