@@ -63,6 +63,7 @@ print_ascii() {
   printf "└───────────────┴─────────────────────────────┘\n"
 }
 
+# Print log
 if [ -n "$today_weather" ]; then
   msg_today="WARNING: Rain possible today ($today) in $city!\n$(print_ascii "$today_weather")"
   echo -e "$msg_today"
