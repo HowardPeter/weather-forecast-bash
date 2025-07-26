@@ -8,6 +8,11 @@ latitude=10.776530
 longitude=106.700977
 response=$(curl -s "https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric")
 
+if [ $? -ne 0 ] || [ -z "$response" ]; then
+    echo "ERROR: Failed to fetch weather data. Please check your internet connection or API key."
+    exit 1
+fi
+
 time_zone=Asia/Ho_Chi_Minh
 csv_file="today_weather.csv"
 
@@ -36,6 +41,14 @@ fi
 
 # If the result is not null, send to csv file
 if [[ "$city" != "null" || "$temp" != "null" || "$humidity" != "null" || "$w_speed" != "null" || "$desc" != "null" ]]; then
+  # Request the record permission to csv file
+  echo -n "Do you want to record this weather to '$csv_file'? (y/n): "
+  read -r confirm
+  if [[ "$confirm" != "y" ]]; then
+    exit 0
+  fi
+  
   csvrecord=$(echo "\"$city\",\"$temp\",\"$humidity\",\"$w_speed\",\"$desc\",\"$local_time\"")
   echo $csvrecord>>$csv_file
+  echo "The weather has been recorded to '$csv_file'"
 fi

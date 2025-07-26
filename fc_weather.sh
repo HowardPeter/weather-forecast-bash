@@ -1,10 +1,13 @@
-response=$(./get_city.sh)
-csv_file="forecast_report.csv"
+#! /bin/bash
 
-if [ $? -ne 0 ]; then
-    echo "Error: Unable to fetch weather data."
+response=$(./get_api.sh)
+
+if [ $? -ne 0 ] || [ -z "$response" ]; then
+    echo "ERROR: Failed to fetch weather data. Please check your internet connection or API key."
     exit 1
 fi
+
+csv_file="forecast_report.csv"
 
 # Get city
 city=$(echo "$response" | jq -r ".city.name")
@@ -84,6 +87,25 @@ END {
 # Paste 5 data columns
 record=$(paste -d ',' <(echo "$dates") <(echo "$avg_temp_5d") <(echo "$rain_fc") <(echo "$min_temp") <(echo "$max_temp"))
 
+# Print forecast result by ASCII format
+echo "City: $city"
+echo "┌────────────┬─────────────┬───────────────────┬─────────────┬─────────────┐"
+echo "│    Date    │ Avg Temp °C │  Rain Forecast    │ Min Temp °C │ Max Temp °C │"
+echo "├────────────┼─────────────┼───────────────────┼─────────────┼─────────────┤"
+
+while IFS=',' read -r date avg rain min max; do
+  printf "│ %-10s │ %11s │ %-17s │ %11s │ %11s │\n" "$date" "$avg" "$rain" "$min" "$max"
+done <<< "$record"
+
+echo "└────────────┴─────────────┴───────────────────┴─────────────┴─────────────┘"
+
+# Request the record permission to csv file
+echo -n "Do you want to record this weather to '$csv_file'? (y/n): "
+read -r confirm
+if [[ "$confirm" != "y" ]]; then
+  exit 0
+fi
+
 # Save forecast reports to csv file
 while IFS= read -r row; do
   row_date=$(echo "$row" | cut -d "," -f1)
@@ -101,14 +123,4 @@ while IFS= read -r row; do
   fi
 done <<< "$record"
 
-# Print forecast result by ASCII format
-echo "City: $city"
-echo "┌────────────┬─────────────┬───────────────────┬─────────────┬─────────────┐"
-echo "│    Date    │ Avg Temp °C │  Rain Forecast    │ Min Temp °C │ Max Temp °C │"
-echo "├────────────┼─────────────┼───────────────────┼─────────────┼─────────────┤"
-
-while IFS=',' read -r date avg rain min max; do
-  printf "│ %-10s │ %11s │ %-17s │ %11s │ %11s │\n" "$date" "$avg" "$rain" "$min" "$max"
-done <<< "$record"
-
-echo "└────────────┴─────────────┴───────────────────┴─────────────┴─────────────┘"
+echo "The forecast weather of the next 5 days has been recorded to '$csv_file'"

@@ -1,8 +1,14 @@
 #! /bin/bash
 
+response=$(./get_api.sh)
+
+if [ $? -ne 0 ] || [ -z "$response" ]; then
+    echo "ERROR: Failed to fetch weather data. Please check your internet connection or API key."
+    exit 1
+fi
+
 email="youremail@gmail.com"
 time_zone=Asia/Ho_Chi_Minh
-response=$(./get_city.sh)
 
 city=$(echo "$response" | jq -r ".city.name")
 
