@@ -7,7 +7,7 @@ if [ $? -ne 0 ] || [ -z "$response" ]; then
     exit 1
 fi
 
-email="youremail@gmail.com"
+email="youremail@example.com"
 time_zone=Asia/Ho_Chi_Minh
 
 city=$(echo "$response" | jq -r ".city.name")
