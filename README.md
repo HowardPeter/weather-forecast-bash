@@ -65,7 +65,7 @@ Send email notifications for potential rain:
 ```bash
 ./send_rain_warning.sh
 ```
-**Features:**
+**Output:**
 - Checks for rain today and tomorrow
 - Sends formatted email alerts with time ranges and descriptions
 - Requires email configuration in the script
@@ -112,6 +112,25 @@ Update coordinates in `current_weather.sh` and `get_city.sh`:
 latitude=your_latitude
 longitude=your_longitude
 ```
+
+## ⚠️ Troubleshooting: `cannot execute: required file not found`
+
+When cloning this project on **Windows** and running scripts in **WSL/Linux**, you may see:
+```bash
+bash: ./fc_weather.sh: cannot execute: required file not found
+```
+
+Fix:
+
+1. Ensure the script has executable permissions:
+```bash
+chmod +x get_api.sh current_weather.sh fc_weather.sh send_rain_warning.sh
+```
+2. Convert line endings to LF:
+```bash
+sed -i 's/\r$//' get_api.sh current_weather.sh fc_weather.sh send_rain_warning.sh
+```
+3. Run scripts again.
 
 ## Output Examples
 
