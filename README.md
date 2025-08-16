@@ -120,7 +120,7 @@ When cloning this project on **Windows** and running scripts in **WSL/Linux**, y
 bash: ./fc_weather.sh: cannot execute: required file not found
 ```
 
-Fix:
+### How to fix:
 
 1. Ensure the script has executable permissions:
 ```bash
