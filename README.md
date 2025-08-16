@@ -160,6 +160,15 @@ City: Ho Chi Minh City
 └────────────┴─────────────┴───────────────────┴─────────────┴─────────────┘
 ```
 
+### Send Rain Warning
+```
+WARNING: Rain possible tomorrow (2025-07-02) in Ho Chi Minh City!
+┌───────────────┬─────────────────────────────┐
+│     Time      │        Description          │
+├───────────────┼─────────────────────────────┤
+│ 06:00-09:00   │ moderate rain               │
+└───────────────┴─────────────────────────────┘
+```
 ## License
 
 This project is open source and available under the MIT License.
