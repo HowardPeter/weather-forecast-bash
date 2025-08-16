@@ -122,7 +122,7 @@ bash: ./fc_weather.sh: cannot execute: required file not found
 
 ### How to fix:
 
-1. Ensure the script has executable permissions:
+1. Ensure the scripts have executable permissions:
 ```bash
 chmod +x get_api.sh current_weather.sh fc_weather.sh send_rain_warning.sh
 ```
